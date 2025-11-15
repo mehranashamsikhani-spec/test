@@ -1,0 +1,36 @@
+.glare-hover {
+  position: relative;
+  overflow: hidden;
+  /* Fix for border-radius clipping issue in Webkit */
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  display: inline-block;
+  vertical-align: middle;
+  width: var(--gh-width);
+  height: var(--gh-height);
+  background: var(--gh-bg);
+  border-radius: var(--gh-br);
+  border: 1px solid var(--gh-border);
+}
+
+.glare-hover::before {
+  content: '';
+  position: absolute;
+  z-index: 1; /* Sit on top of the content */
+  top: -50%;
+  left: -150%;
+  width: var(--gh-size);
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--gh-rgba) 50%,
+    transparent 100%
+  );
+  transform: skewX(calc(var(--gh-angle) * -1));
+  transition: left 0ms ease-in-out; /* Reset instantly */
+}
+
+.glare-hover:hover::before {
+  left: 150%;
+  transition: left var(--gh-duration) ease-in-out;
+}
